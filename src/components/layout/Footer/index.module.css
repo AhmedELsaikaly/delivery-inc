@@ -1,0 +1,9 @@
+.footer {
+  text-align: center;
+  padding: 15px 0;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+}
+.footer span {
+  color: var(--red-color);
+}

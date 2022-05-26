@@ -1,0 +1,50 @@
+.invoice {
+  padding-top: 30px;
+}
+.invoiceHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.invoiceTable {
+  width: 100%;
+  text-align: left;
+  margin-top: 40px;
+  border-spacing: 0;
+}
+.invoiceTable thead tr > th:last-child {
+  width: 30%;
+  background-color: var(--grey-color);
+}
+.invoiceTable tbody tr > td:last-child {
+  background-color: var(--grey-color);
+}
+.invoiceTable thead tr > th {
+  font-size: var(--font-size-25);
+  font-weight: var(--medium);
+  letter-spacing: 0.3px;
+}
+.invoiceTable th,
+.invoiceTable td {
+  padding: 10px 15px;
+}
+.totalRow.totalRow td {
+  padding-top: 150px;
+  font-weight: var(--bold);
+}
+.invoiceNameWrap p,
+.invoiceNameWrap h2,
+.dateNameWrap p,
+.dateNameWrap h3 {
+  margin: 0;
+}
+.invoiceFooter {
+  text-align: center;
+  margin-top: 100px;
+}
+.invoiceFooter p {
+  margin: 0;
+}
+.invoiceFooter p:first-child {
+  margin-bottom: 10px;
+}

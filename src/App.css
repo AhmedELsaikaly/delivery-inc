@@ -1,0 +1,16 @@
+:root {
+  /* colors */
+  --grey-color: #dddddd;
+  --red-color: #ff0000;
+  --blue-color: #1760a5;
+  --white-color: #ffff;
+
+  /* font sizes */
+  --font-size-23: 23px;
+
+  /* font weights */
+  --normal: 400;
+  --medium: 500;
+  --semi-bold: 600;
+  --bold: 700;
+}
