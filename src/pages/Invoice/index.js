@@ -82,7 +82,6 @@ const Invoices = () => {
                   <td>Total Price: ${getTotalPrice(rowData)}</td>
                 </tr>
               </tbody>
-              <tfoot></tfoot>
             </table>
             <div className={s.invoiceFooter}>
               <p>You received {rowData?.length} packages</p>
@@ -91,13 +90,11 @@ const Invoices = () => {
           </div>
         </div>
       ) : (
-        <>
-          <EmptyState
-            message="This User doesn't have any packages to create an invoice"
-            buttonText='Return to Customers Page'
-            ButtonLink={ROUTES.CUSTOMER}
-          />
-        </>
+        <EmptyState
+          message="This User doesn't have any packages to create an invoice"
+          buttonText='Return to Customers Page'
+          ButtonLink={ROUTES.CUSTOMER}
+        />
       )}
     </>
   );
