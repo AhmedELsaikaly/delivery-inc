@@ -78,22 +78,21 @@ const Customers = () => {
               ?.map(invoice => {
                 return (
                   <>
-                    {invoice?.packagesCount > 0 && (
-                      <TableRow
-                        key={invoice?.customerId}
-                        sx={{
-                          '&:last-child td, &:last-child th': { border: 0 },
-                          'th, td': { textAlign: 'center' },
-                        }}
-                      >
-                        <TableCell sx={{ width: '30%', textAlign: 'center' }}>
-                          {invoice?.customerName}
-                        </TableCell>
-                        <TableCell>{invoice?.packagesCount}</TableCell>
-                        <TableCell>{invoice?.totalWeight}Kg</TableCell>
-                        <TableCell>{invoice?.totalPrice}</TableCell>
-                      </TableRow>
-                    )}
+                    {console.log(invoice, 'invoiceinvoice')}
+                    <TableRow
+                      key={invoice?.customerId}
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                        'th, td': { textAlign: 'center' },
+                      }}
+                    >
+                      <TableCell sx={{ width: '30%', textAlign: 'center' }}>
+                        {invoice?.customerName}
+                      </TableCell>
+                      <TableCell>{invoice?.packagesCount}</TableCell>
+                      <TableCell>{invoice?.totalWeight}Kg</TableCell>
+                      <TableCell>{invoice?.totalPrice}</TableCell>
+                    </TableRow>
                   </>
                 );
               })}
