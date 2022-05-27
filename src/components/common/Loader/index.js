@@ -1,9 +1,9 @@
-import s from './index.module.css';
 import { CircularProgress, Box } from '@mui/material';
+import styles from './index.module.css';
 
 const Loader = () => {
   return (
-    <Box className={s.loader} component='div'>
+    <Box className={styles.loader} component='div'>
       <CircularProgress />
     </Box>
   );

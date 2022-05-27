@@ -2,7 +2,7 @@
 export const getTotalPackagesWeight = packagesArr => {
   if (Array.isArray(packagesArr) && packagesArr.length > 0) {
     return packagesArr.reduce(
-      (acc, curr) => acc + parseInt(curr?.weight?.replace('kg', '')),
+      (initialVal, packageItem) => initialVal + parseInt(packageItem?.weight?.replace('kg', '')),
       0
     );
   }
@@ -11,7 +11,7 @@ export const getTotalPackagesWeight = packagesArr => {
 // get Total Price
 export const getTotalPrice = packagesArr => {
   if (Array.isArray(packagesArr) && packagesArr.length > 0) {
-    return packagesArr.reduce((acc, curr) => acc + curr.price, 0);
+    return packagesArr.reduce((initialVal, packageItem) => initialVal + packageItem.price, 0);
   }
 };
 

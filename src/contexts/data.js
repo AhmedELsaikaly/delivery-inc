@@ -75,9 +75,10 @@ const DataProvider = ({ children }) => {
 
   // delete customer form customers list
   const deleteCustomer = id => {
-    const { customers } = data;
-    const newCustomers = customers?.filter(item => item.id !== id);
-    setData({ ...data, customers: newCustomers });
+    const { customers,packages } = data;
+    const newCustomers = customers?.filter(customer => customer.id !== id);
+    const newPackages = packages?.filter(packageItem => packageItem.customerid !== id);
+    setData({ packages:newPackages, customers: newCustomers });
   };
 
   // delete package by id

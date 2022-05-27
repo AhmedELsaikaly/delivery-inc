@@ -10,6 +10,7 @@ import {
   Button,
   ButtonGroup,
   Box,
+  TablePagination,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -25,7 +26,18 @@ const Packages = () => {
   const [packageId, setPackageId] = useState(false);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const { isActive, message, snackType, openSnackBar } = useSnackbar();
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
   useDocTitle('Packages delivery Inc');
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const {
     data: { packages, customers },
@@ -109,58 +121,69 @@ const Packages = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {packages?.map((row, index) => {
-              return (
-                <TableRow
-                  key={index}
-                  sx={{
-                    '&:last-child td, &:last-child th': { border: 0 },
-                    'th, td': { textAlign: 'center' },
-                  }}
-                >
-                  <TableCell component='th' scope='row'>
-                    {row.id}
-                  </TableCell>
-                  <TableCell>
-                    {getCustomerNameById(row.customerid, customers)}
-                  </TableCell>
-                  <TableCell>{row.weight}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() => handleClickDeleteBtnPackage(row.id)}
-                      variant='contained'
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <ButtonGroup
-                      orientation='vertical'
-                      aria-label='vertical contained button group'
-                      variant='contained'
-                    >
+            {packages
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map((row, index) => {
+                return (
+                  <TableRow
+                    key={index}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      'th, td': { textAlign: 'center' },
+                    }}
+                  >
+                    <TableCell component='th' scope='row'>
+                      {row.id}
+                    </TableCell>
+                    <TableCell>
+                      {getCustomerNameById(row.customerid, customers)}
+                    </TableCell>
+                    <TableCell>{row.weight}</TableCell>
+                    <TableCell>{row.price}</TableCell>
+                    <TableCell>
                       <Button
-                        onClick={() => changePackageOrder(index, 'up')}
-                        disabled={index === 0}
+                        onClick={() => handleClickDeleteBtnPackage(row.id)}
+                        variant='contained'
                       >
-                        <ArrowUpwardIcon />
+                        Delete
                       </Button>
-                      <Button
-                        onClick={() => changePackageOrder(index, 'down')}
-                        disabled={index === packages?.length - 1}
+                    </TableCell>
+                    <TableCell>
+                      <ButtonGroup
+                        orientation='vertical'
+                        aria-label='vertical contained button group'
+                        variant='contained'
                       >
-                        <ArrowDownwardIcon />
-                      </Button>
-                    </ButtonGroup>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                        <Button
+                          onClick={() => changePackageOrder(index, 'up')}
+                          disabled={index === 0}
+                        >
+                          <ArrowUpwardIcon />
+                        </Button>
+                        <Button
+                          onClick={() => changePackageOrder(index, 'down')}
+                          disabled={index === packages?.length - 1}
+                        >
+                          <ArrowDownwardIcon />
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
         <AddPackageModal open={open} handleClose={() => setOpen(false)} />
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 15]}
+        component='div'
+        count={customers?.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       <PopConfirm
         open={isPopUpOpen}
         title='Are you sure to delete this Package'

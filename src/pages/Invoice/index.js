@@ -10,7 +10,7 @@ import {
   getCustomerNameById,
 } from '../../helpers';
 
-import s from './index.module.css';
+import styles from './index.module.css';
 
 const Invoices = () => {
   const [rowData, setRawData] = useState([]);
@@ -47,10 +47,10 @@ const Invoices = () => {
   return (
     <>
       {rowData?.length > 0 ? (
-        <div className={s.invoice}>
-          <div className={s.invoiceWrap}>
-            <div className={s.invoiceHead}>
-              <div className={s.dateNameWrap}>
+        <div className={styles.invoice}>
+          <div className={styles.invoiceWrap}>
+            <div className={styles.invoiceHead}>
+              <div className={styles.dateNameWrap}>
                 <p>
                   <time datetime={new Date().toISOString().slice(0, 10)}>
                     {new Date().toISOString().slice(0, 10)}
@@ -58,12 +58,12 @@ const Invoices = () => {
                 </p>
                 <h3>{customerName}</h3>
               </div>
-              <div className={s.invoiceNameWrap}>
+              <div className={styles.invoiceNameWrap}>
                 <h2>Invoice</h2>
                 <p>{`No.${new Date().getTime() * Math.random() * 100000}`}</p>
               </div>
             </div>
-            <table className={s.invoiceTable}>
+            <table className={styles.invoiceTable}>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -73,7 +73,7 @@ const Invoices = () => {
               </thead>
               <tbody>
                 {tableBody}
-                <tr className={s.totalRow}>
+                <tr className={styles.totalRow}>
                   <td></td>
                   <td>
                     Total Weight:
@@ -83,7 +83,7 @@ const Invoices = () => {
                 </tr>
               </tbody>
             </table>
-            <div className={s.invoiceFooter}>
+            <div className={styles.invoiceFooter}>
               <p>You received {rowData?.length} packages</p>
               <p>Thank you for using our services</p>
             </div>

@@ -10,6 +10,7 @@ import {
   TableBody,
   Button,
   Box,
+  TablePagination,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { DataContext } from '../../contexts/data';
@@ -23,6 +24,17 @@ const Customers = () => {
   const [customerId, setCustomerId] = useState('');
   const history = useHistory();
   const { isActive, message, snackType, openSnackBar } = useSnackbar();
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const {
     data: { customers },
@@ -78,65 +90,76 @@ const Customers = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers?.map(customer => {
-              return (
-                <TableRow
-                  key={customer.id}
-                  sx={{
-                    '&:last-child td, &:last-child th': { border: 0 },
-                    'th, td': { textAlign: 'center' },
-                  }}
-                >
-                  <TableCell component='th' scope='row'>
-                    {customer.id}
-                  </TableCell>
-                  <TableCell sx={{ width: '30%', textAlign: 'center' }}>
-                    {customer.name}
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      component='div'
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        ['@media (max-width:780px)']: {
-                          flexDirection: 'column',
-                        },
-                      }}
-                    >
-                      <Button
-                        onClick={() =>
-                          history.push(`${ROUTES.INVOICES}/${customer.id}`)
-                        }
+            {customers
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map(customer => {
+                return (
+                  <TableRow
+                    key={customer.id}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      'th, td': { textAlign: 'center' },
+                    }}
+                  >
+                    <TableCell component='th' scope='row'>
+                      {customer.id}
+                    </TableCell>
+                    <TableCell sx={{ width: '30%', textAlign: 'center' }}>
+                      {customer.name}
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        component='div'
                         sx={{
-                          mr: '10px',
-                          ['@media (max-width:576px)']: {
-                            mr: '0',
-                            mb: '10px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          ['@media (max-width:780px)']: {
+                            flexDirection: 'column',
                           },
                         }}
-                        variant='contained'
                       >
-                        Create Invoice
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleDeleteCustomerBtnClick(customer.id)
-                        }
-                        variant='contained'
-                        color='error'
-                      >
-                        Delete
-                      </Button>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                        <Button
+                          onClick={() =>
+                            history.push(`${ROUTES.INVOICES}/${customer.id}`)
+                          }
+                          sx={{
+                            mr: '10px',
+                            ['@media (max-width:576px)']: {
+                              mr: '0',
+                              mb: '10px',
+                            },
+                          }}
+                          variant='contained'
+                        >
+                          Create Invoice
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            handleDeleteCustomerBtnClick(customer.id)
+                          }
+                          variant='contained'
+                          color='error'
+                        >
+                          Delete
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 15]}
+        component='div'
+        count={customers?.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       <PopConfirm
         open={isPopUpOpen}
         title='Are you sure to delete this Customer'
